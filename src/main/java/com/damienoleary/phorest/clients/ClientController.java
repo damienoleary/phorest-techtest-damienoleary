@@ -18,7 +18,7 @@ public class ClientController {
         this.service = service;
     }
 
-    @GetMapping
+    @GetMapping("/top")
     public List<ClientDTO> findTop(@RequestParam(value = "start_date", required = true) LocalDate startDate,
                                    @RequestParam(value = "limit", required = true) Integer limit) {
         return service.findTop(limit, startDate).stream()
