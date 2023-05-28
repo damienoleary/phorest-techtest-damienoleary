@@ -47,11 +47,10 @@ public class ClientService {
     }
 
     private Integer countLoyaltyPoints(Client client, LocalDate startDate) {
-        Integer points = client.getAppointments().stream()
+        return client.getAppointments().stream()
                 .filter(a -> !a.getEndTime().toLocalDate().isBefore(startDate))
                 .map(Appointment::calculateLoyaltyPoints)
                 .reduce(Integer::sum)
                 .orElse(0);
-        return points;
     }
 }
