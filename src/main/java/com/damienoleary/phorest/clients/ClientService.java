@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Comparator.*;
 import static java.util.function.Predicate.not;
@@ -52,5 +53,9 @@ public class ClientService {
                 .map(Appointment::calculateLoyaltyPoints)
                 .reduce(Integer::sum)
                 .orElse(0);
+    }
+
+    public Optional<Client> findById(String id) {
+        return repository.findById(id);
     }
 }

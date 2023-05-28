@@ -1,9 +1,7 @@
 package com.damienoleary.phorest.clients;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,5 +22,13 @@ public class ClientController {
         return service.findTop(limit, startDate).stream()
                 .map(Client::toDTO)
                 .toList();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ClientDTO> findById(@PathVariable("id") String id) {
+        return service.findById(id)
+                .map(Client::toDTO)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

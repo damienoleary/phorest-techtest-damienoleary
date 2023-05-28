@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -89,5 +90,20 @@ public class ClientServiceTest {
         assertThat(clients).hasSize(2);
         assertThat(clients.get(0).getId()).isEqualTo("client2");
         assertThat(clients.get(1).getId()).isEqualTo("client3");
+    }
+
+    @Test
+    public void testFindById_notPresent() {
+        Optional<Client> actual = underTest.findById("doesnotexist");
+
+        assertThat(actual).isEmpty();
+    }
+
+    @Test
+    public void testFindById_present() {
+        Optional<Client> actual = underTest.findById("client1");
+
+        assertThat(actual).isPresent();
+        assertThat(actual.get().getId()).isEqualTo("client1");
     }
 }
