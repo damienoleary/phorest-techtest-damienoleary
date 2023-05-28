@@ -48,6 +48,7 @@ public class ClientRepository {
 
     public Optional<Client> findById(String id) {
         TypedQuery<Client> query = em.createQuery("select c from Client c where c.id = ?1", Client.class);
+        query.setParameter(1, id);
         List<Client> clients = query.getResultList();
         if (clients.isEmpty()) {
             return Optional.empty();
