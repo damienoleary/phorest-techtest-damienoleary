@@ -10,9 +10,9 @@ import java.util.List;
 public interface CSVParser<T> {
     List<T> parse(String csv);
 
-    default <T> List<T> parse(String csv, Class<? extends CSVMapping<T>> mappingClass) {
+    default List<T> parse(String csv, Class<? extends CSVMapping<T>> mappingClass) {
         if (StringUtils.isNotBlank(csv)) {
-            List<CSVMapping<T>> mapped = new CsvToBeanBuilder(new StringReader(csv))
+            List<CSVMapping<T>> mapped = new CsvToBeanBuilder<CSVMapping<T>>(new StringReader(csv))
                     .withType(mappingClass)
                     .build().parse();
             return mapped.stream()

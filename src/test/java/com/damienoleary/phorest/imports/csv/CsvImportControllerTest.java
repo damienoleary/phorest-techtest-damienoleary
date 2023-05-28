@@ -37,7 +37,7 @@ class CsvImportControllerTest {
         request.setPurchases(loadTextFile("purchases.txt"));
         request.setServices(loadTextFile("services.txt"));
         RequestEntity<CSVImportData> requestEntity = new RequestEntity<>(request, HttpMethod.POST,
-                URI.create("http://localhost:" + port + "/import/csv"));
+                URI.create("http://localhost:" + port + "/api/v1/import/csv"));
         ParameterizedTypeReference<Map<String, List<String>>> responseType = new ParameterizedTypeReference<>() {
         };
 

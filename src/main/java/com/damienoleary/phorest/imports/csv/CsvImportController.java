@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/import/csv")
+@RequestMapping("api/v1/import/csv")
 public class CsvImportController {
     private final CsvImportService service;
 
