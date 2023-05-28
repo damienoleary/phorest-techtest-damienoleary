@@ -60,14 +60,14 @@ public class ClientServiceTest {
 
     @Test
     public void testFindTop_noAppointmentsAfterStartDate() {
-        List<Client> clients = underTest.findTop(100, LocalDate.of(2022, 01, 01));
+        List<Client> clients = underTest.findTop(100, LocalDate.of(2022, 1, 1));
 
         assertThat(clients).isEmpty();
     }
 
     @Test
     public void testFindTop_oneAppointmentAfterStartDate() {
-        List<Client> clients = underTest.findTop(100, LocalDate.of(2020, 01, 01));
+        List<Client> clients = underTest.findTop(100, LocalDate.of(2020, 1, 1));
 
         assertThat(clients).hasSize(1);
         Client client = clients.get(0);
@@ -76,7 +76,7 @@ public class ClientServiceTest {
 
     @Test
     public void testFindTop_twoAppointmentsAfterStartDate() {
-        List<Client> clients = underTest.findTop(100, LocalDate.of(2019, 01, 01));
+        List<Client> clients = underTest.findTop(100, LocalDate.of(2019, 1, 1));
 
         assertThat(clients).hasSize(2);
         assertThat(clients.get(0).getId()).isEqualTo("client2");
@@ -85,7 +85,7 @@ public class ClientServiceTest {
 
     @Test
     public void testFindTop_ignoresBannedClients() {
-        List<Client> clients = underTest.findTop(100, LocalDate.of(2018, 01, 01));
+        List<Client> clients = underTest.findTop(100, LocalDate.of(2018, 1, 1));
 
         assertThat(clients).hasSize(2);
         assertThat(clients.get(0).getId()).isEqualTo("client2");

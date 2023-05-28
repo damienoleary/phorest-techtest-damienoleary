@@ -26,7 +26,7 @@ public class ClientCSVParserTest implements CSVParserTest {
     }
 
     @Test
-    public void testParse_singleRow_returnsEntity() throws Exception {
+    public void testParse_singleRow_returnsEntity() {
         String csv = loadTestFile("single_valid.csv");
 
         List<Client> actual = underTest.parse(csv);
