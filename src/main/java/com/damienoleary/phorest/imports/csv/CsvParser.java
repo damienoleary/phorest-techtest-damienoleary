@@ -7,16 +7,16 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface CSVParser<T> {
+public interface CsvParser<T> {
     List<T> parse(String csv);
 
-    default List<T> parse(String csv, Class<? extends CSVMapping<T>> mappingClass) {
+    default List<T> parse(String csv, Class<? extends CsvMapping<T>> mappingClass) {
         if (StringUtils.isNotBlank(csv)) {
-            List<CSVMapping<T>> mapped = new CsvToBeanBuilder<CSVMapping<T>>(new StringReader(csv))
+            List<CsvMapping<T>> mapped = new CsvToBeanBuilder<CsvMapping<T>>(new StringReader(csv))
                     .withType(mappingClass)
                     .build().parse();
             return mapped.stream()
-                    .map(CSVMapping::getEntity)
+                    .map(CsvMapping::getEntity)
                     .toList();
         }
         return new ArrayList<>();

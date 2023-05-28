@@ -8,7 +8,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ServiceCSVParserTest implements CSVParserTest {
-    ServiceCSVParser underTest = new ServiceCSVParser();
+    ServiceCsvParser underTest = new ServiceCsvParser();
 
     @Test
     public void testParse_nullArg_emptyListReturned() {

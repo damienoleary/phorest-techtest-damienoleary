@@ -1,6 +1,6 @@
 package com.damienoleary.phorest.imports.csv;
 
-public class CSVImportData {
+public class CsvImportData {
     private String clients;
     private String appointments;
     private String purchases;

@@ -1,14 +1,14 @@
 package com.damienoleary.phorest.imports.csv;
 
 import com.damienoleary.phorest.BadRequestException;
-import com.damienoleary.phorest.appointments.AppointmentCSVParser;
-import com.damienoleary.phorest.clients.ClientCSVParser;
+import com.damienoleary.phorest.appointments.AppointmentCsvParser;
+import com.damienoleary.phorest.clients.ClientCsvParser;
 import com.damienoleary.phorest.appointments.Appointment;
 import com.damienoleary.phorest.clients.Client;
 import com.damienoleary.phorest.purchases.Purchase;
 import com.damienoleary.phorest.services.Service;
-import com.damienoleary.phorest.purchases.PurchaseCSVParser;
-import com.damienoleary.phorest.services.ServiceCSVParser;
+import com.damienoleary.phorest.purchases.PurchaseCsvParser;
+import com.damienoleary.phorest.services.ServiceCsvParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,14 +20,14 @@ import static java.util.stream.Collectors.toMap;
 
 @Component
 public class CsvParserService {
-    private final CSVParser<Client> clientCSVParser;
-    private final CSVParser<Appointment> appointmentCSVParser;
-    private final CSVParser<Service> serviceCSVParser;
-    private final CSVParser<Purchase> purchaseCSVParser;
+    private final CsvParser<Client> clientCSVParser;
+    private final CsvParser<Appointment> appointmentCSVParser;
+    private final CsvParser<Service> serviceCSVParser;
+    private final CsvParser<Purchase> purchaseCSVParser;
 
     @Autowired
-    public CsvParserService(CSVParser<Client> clientCSVParser, CSVParser<Appointment> appointmentCSVParser,
-                            CSVParser<Service> serviceCSVParser, CSVParser<Purchase> purchaseCSVParser) {
+    public CsvParserService(CsvParser<Client> clientCSVParser, CsvParser<Appointment> appointmentCSVParser,
+                            CsvParser<Service> serviceCSVParser, CsvParser<Purchase> purchaseCSVParser) {
         this.clientCSVParser = clientCSVParser;
         this.appointmentCSVParser = appointmentCSVParser;
         this.serviceCSVParser = serviceCSVParser;
@@ -35,10 +35,10 @@ public class CsvParserService {
     }
 
     public CsvParserService() {
-        this(new ClientCSVParser(), new AppointmentCSVParser(), new ServiceCSVParser(), new PurchaseCSVParser());
+        this(new ClientCsvParser(), new AppointmentCsvParser(), new ServiceCsvParser(), new PurchaseCsvParser());
     }
 
-    public List<Client> parse(CSVImportData data) {
+    public List<Client> parse(CsvImportData data) {
         List<Client> clients = clientCSVParser.parse(data.getClients());
         Map<String, Client> clientsById = clients.stream()
                 .collect(toMap(Client::getId, identity()));

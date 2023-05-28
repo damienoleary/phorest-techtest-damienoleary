@@ -1,8 +1,8 @@
 package com.damienoleary.phorest.appointments;
 
 import com.damienoleary.phorest.clients.Client;
-import com.damienoleary.phorest.imports.csv.CSVMapping;
-import com.damienoleary.phorest.imports.csv.CSVParser;
+import com.damienoleary.phorest.imports.csv.CsvMapping;
+import com.damienoleary.phorest.imports.csv.CsvParser;
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvDate;
 import org.springframework.stereotype.Component;
@@ -11,13 +11,13 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 @Component
-public class AppointmentCSVParser implements CSVParser<Appointment> {
+public class AppointmentCsvParser implements CsvParser<Appointment> {
     @Override
     public List<Appointment> parse(String csv) {
         return parse(csv, AppointmentOpenCSVMapping.class);
     }
 
-    public static class AppointmentOpenCSVMapping implements CSVMapping<Appointment> {
+    public static class AppointmentOpenCSVMapping implements CsvMapping<Appointment> {
         @CsvBindByName(column = "id")
         public String id;
         @CsvBindByName(column = "client_id")

@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ClientCSVParserTest implements CSVParserTest {
 
-    private final ClientCSVParser underTest = new ClientCSVParser();
+    private final ClientCsvParser underTest = new ClientCsvParser();
 
     @Test
     public void testParse_nullArg_returnsEmptyList() {

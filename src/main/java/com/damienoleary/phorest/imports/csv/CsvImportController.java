@@ -19,7 +19,7 @@ public class CsvImportController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> upload(@Valid @RequestBody CSVImportData importData) {
+    public ResponseEntity<Void> upload(@Valid @RequestBody CsvImportData importData) {
         service.processImport(importData);
         return ResponseEntity.noContent().build();
     }

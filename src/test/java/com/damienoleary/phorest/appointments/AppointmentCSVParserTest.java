@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class AppointmentCSVParserTest implements CSVParserTest {
 
-    AppointmentCSVParser underTest = new AppointmentCSVParser();
+    AppointmentCsvParser underTest = new AppointmentCsvParser();
 
     @Test
     public void testParse_nullArg_emptyListReturned() {

@@ -20,7 +20,7 @@ public class CsvImportService {
         this.clientService = clientService;
     }
 
-    public void processImport(@Valid CSVImportData importData) {
+    public void processImport(@Valid CsvImportData importData) {
         List<Client> clients = parserService.parse(importData);
         clientService.create(clients);
     }

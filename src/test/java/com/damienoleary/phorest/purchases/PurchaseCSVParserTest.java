@@ -8,7 +8,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PurchaseCSVParserTest implements CSVParserTest {
-    PurchaseCSVParser underTest = new PurchaseCSVParser();
+    PurchaseCsvParser underTest = new PurchaseCsvParser();
 
     @Test
     public void testParse_nullArg_emptyListReturned() {

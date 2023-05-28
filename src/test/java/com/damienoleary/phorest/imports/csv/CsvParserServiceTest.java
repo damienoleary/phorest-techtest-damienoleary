@@ -29,12 +29,12 @@ public class CsvParserServiceTest {
 
     @Test
     public void testParse_emptyArg() {
-        underTest.parse(new CSVImportData());
+        underTest.parse(new CsvImportData());
     }
 
     @Test
     public void testParse_clientHasNoAppointments_noExceptionThrown() {
-        CSVImportData data = new CSVImportData();
+        CsvImportData data = new CsvImportData();
         data.setClients(loadCSV("/com/damienoleary/phorest/clients/single_valid.csv"));
 
         underTest.parse(data);
@@ -42,7 +42,7 @@ public class CsvParserServiceTest {
 
     @Test
     public void testParse_appointmentHasNoClient_exceptionThrown() {
-        CSVImportData data = new CSVImportData();
+        CsvImportData data = new CsvImportData();
         data.setAppointments(loadCSV("/com/damienoleary/phorest/appointments/single_valid.csv"));
 
         BadRequestException ex = assertThrows(BadRequestException.class,
@@ -54,7 +54,7 @@ public class CsvParserServiceTest {
 
     @Test
     public void testParse_serviceHasNoAppointment_exceptionThrown() {
-        CSVImportData data = new CSVImportData();
+        CsvImportData data = new CsvImportData();
         data.setServices(loadCSV("/com/damienoleary/phorest/services/single_valid.csv"));
 
         BadRequestException ex = assertThrows(BadRequestException.class,
@@ -66,7 +66,7 @@ public class CsvParserServiceTest {
 
     @Test
     public void testParse_purchaseHasNoAppointment_exceptionThrown() {
-        CSVImportData data = new CSVImportData();
+        CsvImportData data = new CsvImportData();
         data.setPurchases(loadCSV("/com/damienoleary/phorest/purchases/single_valid.csv"));
 
         BadRequestException ex = assertThrows(BadRequestException.class,
@@ -78,7 +78,7 @@ public class CsvParserServiceTest {
 
     @Test
     public void testParse_appointmentHasNoServices_exceptionThrown() {
-        CSVImportData data = new CSVImportData();
+        CsvImportData data = new CsvImportData();
         data.setClients(loadCSV("/com/damienoleary/phorest/clients/single_valid.csv"));
         data.setAppointments(loadCSV("/com/damienoleary/phorest/appointments/single_valid.csv"));
 
@@ -91,7 +91,7 @@ public class CsvParserServiceTest {
 
     @Test
     public void testParse_appointmentHasNoPurchases_noExceptionThrown() {
-        CSVImportData data = new CSVImportData();
+        CsvImportData data = new CsvImportData();
         data.setClients(loadCSV("/com/damienoleary/phorest/clients/single_valid.csv"));
         data.setAppointments(loadCSV("/com/damienoleary/phorest/appointments/single_valid.csv"));
         data.setServices(loadCSV("/com/damienoleary/phorest/services/single_valid.csv"));
@@ -101,7 +101,7 @@ public class CsvParserServiceTest {
 
     @Test
     public void testParse_minimalValid() {
-        CSVImportData data = new CSVImportData();
+        CsvImportData data = new CsvImportData();
         data.setClients(loadCSV("/com/damienoleary/phorest/clients/single_valid.csv"));
         data.setAppointments(loadCSV("/com/damienoleary/phorest/appointments/single_valid.csv"));
         data.setServices(loadCSV("/com/damienoleary/phorest/services/single_valid.csv"));

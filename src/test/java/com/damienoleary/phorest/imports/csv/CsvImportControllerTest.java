@@ -31,12 +31,12 @@ class CsvImportControllerTest {
 
     @Test
     void testUpload_success() {
-        CSVImportData request = new CSVImportData();
+        CsvImportData request = new CsvImportData();
         request.setClients(loadTextFile("clients.txt"));
         request.setAppointments(loadTextFile("appointments.txt"));
         request.setPurchases(loadTextFile("purchases.txt"));
         request.setServices(loadTextFile("services.txt"));
-        RequestEntity<CSVImportData> requestEntity = new RequestEntity<>(request, HttpMethod.POST,
+        RequestEntity<CsvImportData> requestEntity = new RequestEntity<>(request, HttpMethod.POST,
                 URI.create("http://localhost:" + port + "/api/v1/import/csv"));
         ParameterizedTypeReference<Map<String, List<String>>> responseType = new ParameterizedTypeReference<>() {
         };

@@ -1,8 +1,8 @@
 package com.damienoleary.phorest.services;
 
 import com.damienoleary.phorest.appointments.Appointment;
-import com.damienoleary.phorest.imports.csv.CSVMapping;
-import com.damienoleary.phorest.imports.csv.CSVParser;
+import com.damienoleary.phorest.imports.csv.CsvMapping;
+import com.damienoleary.phorest.imports.csv.CsvParser;
 import com.opencsv.bean.CsvBindByName;
 import org.springframework.stereotype.Component;
 
@@ -10,13 +10,13 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Component
-public class ServiceCSVParser implements CSVParser<Service> {
+public class ServiceCsvParser implements CsvParser<Service> {
     @Override
     public List<Service> parse(String csv) {
         return parse(csv, ServiceOpenCSVMapping.class);
     }
 
-    public static class ServiceOpenCSVMapping implements CSVMapping<Service> {
+    public static class ServiceOpenCSVMapping implements CsvMapping<Service> {
 
         @CsvBindByName(column = "id")
         public String id;
