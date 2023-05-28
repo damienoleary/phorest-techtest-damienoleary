@@ -4,7 +4,7 @@
 - Spring Boot application
 - Written in Java
 - Extensive unit tests, partially developed using TDD
-- Mock free - using James Shore's sociable, state based testing approach
+- Mock free - using James Shore's sociable, state based testing approach (as an experiment)
 - Uses Open CSV
 - Uses h2 in memory DB
 - Includes a postman collection
