@@ -31,4 +31,10 @@ public class ClientController {
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    @PutMapping
+    public ResponseEntity update(@RequestBody ClientDTO client) {
+        service.update(new Client(client));
+        return ResponseEntity.noContent().build();
+    }
 }

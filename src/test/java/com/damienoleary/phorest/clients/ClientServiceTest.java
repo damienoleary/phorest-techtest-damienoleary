@@ -1,5 +1,6 @@
 package com.damienoleary.phorest.clients;
 
+import com.damienoleary.phorest.BadRequestException;
 import com.damienoleary.phorest.appointments.Appointment;
 import com.damienoleary.phorest.purchases.Purchase;
 import com.damienoleary.phorest.services.Service;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ClientServiceTest {
     ClientService underTest;
@@ -105,5 +107,26 @@ public class ClientServiceTest {
 
         assertThat(actual).isPresent();
         assertThat(actual.get().getId()).isEqualTo("client1");
+    }
+
+    @Test
+    public void testUpdate_notExists_exceptionThrown() {
+        Client client = new Client();
+        client.setId("doesnotexist");
+
+        BadRequestException ex = assertThrows(BadRequestException.class, () -> underTest.update(client));
+    }
+
+    @Test
+    public void testUpdate_exists_updated() {
+        Client client = new Client();
+        client.setId("client1");
+        client.setFirstName("Updated FirstName");
+        client.setEmail("Updated Email");
+        client.setGender("Updated Gender");
+        client.setBanned(true);
+        client.setPhone("Updated phone");
+
+        underTest.update(client);
     }
 }

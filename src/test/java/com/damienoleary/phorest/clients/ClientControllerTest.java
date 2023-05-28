@@ -12,10 +12,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ClientControllerTest {
 
     private ClientController underTest;
+    private Client client;
 
     @BeforeEach
     public void setUp() {
-        Client client = new Client();
+        client = new Client();
         client.setId("exist");
         client.setBanned(false);
         client.setGender("Female");
@@ -44,6 +45,12 @@ public class ClientControllerTest {
         assertThat(body.getPhone()).isEqualTo("Phone");
         assertThat(body.getFirstName()).isEqualTo("First Name");
         assertThat(body.getLastName()).isEqualTo("last name");
+    }
 
+    @Test
+    public void testUpdate() {
+        ResponseEntity<ClientDTO> actual = underTest.update(client.toDTO());
+
+        assertThat(actual.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(204));
     }
 }

@@ -19,6 +19,18 @@ public class Client {
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Appointment> appointments = new ArrayList<>();
 
+    public Client() {}
+
+    public Client(ClientDTO dto) {
+        setBanned(dto.getBanned());
+        setEmail(dto.getEmail());
+        setFirstName(dto.getFirstName());
+        setLastName(dto.getLastName());
+        setGender(dto.getGender());
+        setPhone(dto.getPhone());
+        setId(dto.getId());
+    }
+
     public String getId() {
         return id;
     }
