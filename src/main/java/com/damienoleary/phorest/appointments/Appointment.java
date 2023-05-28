@@ -12,7 +12,6 @@ import java.util.List;
 @Entity
 public class Appointment {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private LocalDateTime startTime;
     private LocalDateTime endTime;

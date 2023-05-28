@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 @Entity
 public class Purchase {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String name;
     private BigDecimal price;

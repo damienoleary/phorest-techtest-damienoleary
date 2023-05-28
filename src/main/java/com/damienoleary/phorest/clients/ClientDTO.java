@@ -1,14 +1,6 @@
 package com.damienoleary.phorest.clients;
 
-import com.damienoleary.phorest.appointments.Appointment;
-import jakarta.persistence.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
-@Entity
-public class Client {
-    @Id
+public class ClientDTO {
     private String id;
     private String firstName;
     private String lastName;
@@ -16,8 +8,6 @@ public class Client {
     private String phone;
     private Boolean banned;
     private String gender;
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Appointment> appointments = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -59,14 +49,6 @@ public class Client {
         this.phone = phone;
     }
 
-    public List<Appointment> getAppointments() {
-        return appointments;
-    }
-
-    public void setAppointments(List<Appointment> appointments) {
-        this.appointments = appointments;
-    }
-
     public Boolean getBanned() {
         return banned;
     }
@@ -81,17 +63,5 @@ public class Client {
 
     public void setGender(String gender) {
         this.gender = gender;
-    }
-
-    public ClientDTO toDTO() {
-        ClientDTO clientDTO = new ClientDTO();
-        clientDTO.setBanned(banned);
-        clientDTO.setEmail(email);
-        clientDTO.setFirstName(firstName);
-        clientDTO.setLastName(lastName);
-        clientDTO.setGender(gender);
-        clientDTO.setPhone(phone);
-        clientDTO.setId(id);
-        return clientDTO;
     }
 }

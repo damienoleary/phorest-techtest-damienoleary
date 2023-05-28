@@ -3,52 +3,91 @@ package com.damienoleary.phorest.clients;
 import com.damienoleary.phorest.appointments.Appointment;
 import com.damienoleary.phorest.purchases.Purchase;
 import com.damienoleary.phorest.services.Service;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ClientServiceTest {
-    ClientService clientService = ClientService.createNull();
+    ClientService underTest;
 
-    @Test
-    public void testSave_accumulatesPoints() {
-        Client client = new Client();
+    @BeforeEach
+    public void setUp() {
+        Client client1 = new Client();
+        client1.setBanned(false);
+        client1.setId("client1");
+        Client client2 = new Client();
+        client2.setBanned(false);
+        client2.setId("client2");
+        Appointment appointment1 = appointment("2019-01-01", 20, 10);
+        client2.setAppointments(List.of(appointment1));
+        Client client3 = new Client();
+        client3.setBanned(false);
+        client3.setId("client3");
+        Appointment appointment3 = appointment("2020-01-01", 20, 1);
+        client3.setAppointments(List.of(appointment3));
+        Client client4 = new Client();
+        client4.setBanned(true);
+        client4.setId("client4");
+        Appointment appointment4 = appointment("2018-06-01", 20, 1);
+        client4.setAppointments(List.of(appointment4));
+        underTest = ClientService.createNull(List.of(client1, client2, client3, client4));
+    }
+
+    private Appointment appointment(String date, int servicePoints, int purchasePoints) {
         Appointment appointment = new Appointment();
-        appointment.setClient(client);
-        client.getAppointments().add(appointment);
+        appointment.setEndTime(LocalDate.parse(date).atTime(0, 0));
+        appointment.setServices(List.of(serviceWithPoints(servicePoints)));
+        appointment.setPurchases(List.of(purchaseWithPoints(purchasePoints)));
+        return appointment;
+    }
+
+    private Service serviceWithPoints(int points) {
         Service service = new Service();
-        appointment.getServices().add(service);
-        service.setAppointment(appointment);
-        service.setLoyaltyPoints(5);
+        service.setLoyaltyPoints(points);
+        return service;
+    }
+
+    private Purchase purchaseWithPoints(int points) {
         Purchase purchase = new Purchase();
-        purchase.setLoyaltyPoints(10);
-        appointment.getPurchases().add(purchase);
-        purchase.setAppointment(appointment);
-
-        Client saved = clientService.create(client);
-
-        assertThat(saved.getLoyaltyPoints()).isEqualTo(15);
+        purchase.setLoyaltyPoints(points);
+        return purchase;
     }
 
     @Test
-    public void testSave_updatesPoints() {
-        Client client = new Client();
-        Appointment appointment = new Appointment();
-        appointment.setClient(client);
-        client.getAppointments().add(appointment);
-        Service service = new Service();
-        appointment.getServices().add(service);
-        service.setAppointment(appointment);
-        service.setLoyaltyPoints(5);
-        Purchase purchase = new Purchase();
-        purchase.setLoyaltyPoints(10);
-        appointment.getPurchases().add(purchase);
-        purchase.setAppointment(appointment);
-        Client saved = clientService.create(client);
-        saved.getAppointments().get(0).getPurchases().get(0).setLoyaltyPoints(8);
-        saved = clientService.create(saved);
+    public void testFindTop_noAppointmentsAfterStartDate() {
+        List<Client> clients = underTest.findTop(100, LocalDate.of(2022, 01, 01));
 
-        assertThat(saved.getAppointments().get(0).getPurchases().get(0).getLoyaltyPoints()).isEqualTo(8);
-        assertThat(saved.getLoyaltyPoints()).isEqualTo(13);
+        assertThat(clients).isEmpty();
+    }
+
+    @Test
+    public void testFindTop_oneAppointmentAfterStartDate() {
+        List<Client> clients = underTest.findTop(100, LocalDate.of(2020, 01, 01));
+
+        assertThat(clients).hasSize(1);
+        Client client = clients.get(0);
+        assertThat(client.getId()).isEqualTo("client3");
+    }
+
+    @Test
+    public void testFindTop_twoAppointmentsAfterStartDate() {
+        List<Client> clients = underTest.findTop(100, LocalDate.of(2019, 01, 01));
+
+        assertThat(clients).hasSize(2);
+        assertThat(clients.get(0).getId()).isEqualTo("client2");
+        assertThat(clients.get(1).getId()).isEqualTo("client3");
+    }
+
+    @Test
+    public void testFindTop_ignoresBannedClients() {
+        List<Client> clients = underTest.findTop(100, LocalDate.of(2018, 01, 01));
+
+        assertThat(clients).hasSize(2);
+        assertThat(clients.get(0).getId()).isEqualTo("client2");
+        assertThat(clients.get(1).getId()).isEqualTo("client3");
     }
 }
